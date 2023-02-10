@@ -1,0 +1,176 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const router = express.Router();
+const PORT = 3000;
+// User schema
+const UserSchema = new mongoose.Schema({
+  roles: {
+    type: String,
+    enum: ['admin', 'superAdmin', 'user'],
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  amountContributed: {
+    type: Number,
+    default: 0
+  }
+});
+
+const User = mongoose.model('User', UserSchema);
+
+// Register a new user
+router.post('/register', (req, res) => {
+  const { roles, name, email, firstName, lastName, password } = req.body;
+
+  // Check if the user already exists
+  User.findOne({ email }).then(user => {
+    if (user) {
+      return res.status(400).json({ msg: 'User already exists' });
+    }
+
+    // Create a new user
+    const newUser = new User({
+      roles,
+      name,
+      email,
+      firstName,
+      lastName,
+      password
+    });
+
+    // Hash the password
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser.save().then(user => {
+          jwt.sign(
+            { id: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: 3600 },
+            (err, token) => {
+              if (err) throw err;
+              res.json({
+                token,
+                user: {
+                  id: user._id,
+                  roles: user.roles,
+                  name: user.name,
+                  email: user.email,
+                  firstName: user.firstName,
+                  lastName: user.lastName
+                }
+              });
+            }
+          );
+        });
+      });
+    });
+  });
+});
+
+// Login a user
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // Check if the user exists
+  User.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(400).json({ msg: 'User does not exist' });
+    }
+
+    // Compare the passwords
+    bcrypt.compare(password, user.password).then(isMatch => {
+            if (!isMatch) {
+            return res.status(400).json({ msg: 'Invalid credentials' });
+            }
+            jwt.sign(
+                { id: user._id },
+                process.env.JWT_SECRET,
+                { expiresIn: 3600 },
+                (err, token) => {
+                  if (err) throw err;
+                  res.json({
+                    token,
+                    user: {
+                      id: user._id,
+                      roles: user.roles,
+                      name: user.name,
+                      email: user.email,
+                      firstName: user.firstName,
+                      lastName: user.lastName
+                    }
+                  });
+                }
+              );
+            });
+        });
+    });
+    
+    // Add a member to an admin's group
+router.post('/add-member', (req, res) => {
+    // Verify the admin's role and check if the user exists
+    User.findOne({ _id: req.user.id, roles: 'admin' }).then(admin => {
+    if (!admin) {
+    return res.status(401).json({ msg: 'Unauthorized' });
+    }
+
+    User.findOne({ email: req.body.email }).then(user => {
+        if (!user) {
+          return res.status(400).json({ msg: 'User does not exist' });
+        }
+      
+        // Add the member to the admin's group
+        admin.group.push({
+          memberId: user._id,
+          amountContributed: req.body.amountContributed
+        });
+      
+        admin.save().then(() => {
+          res.json({ msg: 'Member added successfully' });
+        });
+      });
+      });
+      });
+      
+      // Remove a member from an admin's group
+router.delete('/remove-member/:memberId', (req, res) => {
+    // Verify the admin's role and check if the user exists
+    User.findOne({ _id: req.user.id, roles: 'admin' }).then(admin => {
+    if (!admin) {
+    return res.status(401).json({ msg: 'Unauthorized' });
+    }
+    // Remove the member from the admin's group
+admin.group = admin.group.filter(
+    member => member.memberId.toString() !== req.params.memberId
+  );
+  
+  admin.save().then(() => {
+    res.json({ msg: 'Member removed successfully' });
+  });
+  });
+  });
+  
+  module.exports = router;

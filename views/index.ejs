@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>AMUA</title>
+  </head>
+  <body>
+    <h1>My Dashboard</h1>
+    <form action="/new" method="POST">
+      <label for="firstName">First Name:</label>
+      <input type="text" name="firstName">
+      <br>
+      <label for="last">Last Name:</label>
+      <input type="text" name="lastName">
+      <br>
+      <label for="email">Email:</label>
+      <input type="email" name="email">
+      <br>
+      <label for="role">Role:</label>
+      <select name="roles" id="role">
+        <option value="">--Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="superAdmin">Super Admin</option>
+        <option value="member">Member</option>
+      </select>
+      <br>
+      <label for="nationalId">National ID:</label>
+      <input type="text" name="nationalId">
+      <br>
+      <button type="submit">Add Member</button>
+    </form>
+
+    
+    <div class="section" style="background-color: lightblue;">
+      <h2>Team</h2>
+      <ol>
+        <% membersList.forEach(member =>{ %>
+             <li>
+                 <div><%= member.firstName%> <%= member.lastName%></div>
+                 <div></div>
+                 <a href="">Edit</a>
+                 <a href="">Remove</a>
+             </li>
+        <%}) %>
+      </ol>
+    </div>
+    <div class="section" style="background-color: lightgreen;">
+      <h2>Savings</h2>
+    </div>
+    <div class="section" style="background-color: lightcoral;">
+      <h2>Fees</h2>
+    </div>
+    <div class="section" style="background-color: lightyellow;">
+      <h2>Status</h2>
+  </body>
+</html>
