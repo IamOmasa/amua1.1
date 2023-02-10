@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Member</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <section>
+        <h1><h1>This is the Edit Page!</h1></h1>
+        <section>
+            <ul>
+                <% membersList.forEach(member => { %>
+                    <% if (member._id==idMember) { %>
+                        <li>
+                            <form action="/edit/update/<%= member._id %>" method="POST">
+                                <label for="firstName">First Name:</label>
+                                <input type="text" value="<%=member.firstName%>" name="firstName">
+                                <br>
+                                <label for="last">Last Name:</label>
+                                <input type="text" value="<%=member.lastName%>" name="lastName">
+                                <br>
+                                <label for="email">Email:</label>
+                                <input type="email" value="<%=member.email%>" name="email">
+                                <br>
+                                <label for="role">Role:</label>
+                                <select name="roles" aria-valuenow="<%=member.roles%>" id="role">
+                                  <option value="">--Select Role</option>
+                                  <option value="admin">Admin</option>
+                                  <option value="superAdmin">Super Admin</option>
+                                  <option value="member">Member</option>
+                                </select>
+                                <br>
+                                <label for="nationalId">National ID:</label>
+                                <input type="text" value="<%=member.nationalId%>" name="nationalId">
+                                <br>
+                                <button type="submit" class="confirm">Confirm</button>
+                                <a href="/" class="cancel">Cancel</a>
+                            </form>
+                        </li>
+                        <% } else { %>
+                            <li>
+                                
+                                <div><%= member.firstName%> <%= member.lastName%></div>
+                               
+                                <a href="/edit/<%= member._id %>">Edit</a>
+                                <a href="/edit/remove/<%= member._id %>" class="remove">Cancel</a>
+                            </li>
+                            <% } %>
+                                <% }) %>
+            </ul>
+        </section>
+    </section>
+</body>
+</html>

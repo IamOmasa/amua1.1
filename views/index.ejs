@@ -41,8 +41,8 @@
              <li>
                  <div><%= member.firstName%> <%= member.lastName%></div>
                  <div></div>
-                 <a href="">Edit</a>
-                 <a href="">Remove</a>
+                 <a href="/edit/<%= member._id %>">Edit</a>
+                 <a href="/edit/remove/<%= member._id %>">Remove</a>
              </li>
         <%}) %>
       </ol>
