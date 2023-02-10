@@ -17,6 +17,7 @@ app.use(express.urlencoded({extended: true}))
 //todo - Set Routes
 app.use('/', homeRoutes)
 //todo - Start Server
+
 app.listen(PORT, () =>{
   console.log(`Server running on port ${PORT}`)
 })
