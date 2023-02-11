@@ -1,9 +1,10 @@
 const Member = require('../models/Member')
+const Amount = require('../models/Amount')
 
 module.exports = {
     getIndex : async(req,res) => {
         try{
-            const members = await Member.find()
+            const members = await Member.find(req.params.id)
             res.render("index.ejs",{membersList: members})
         } catch (err) {
             if (err) return res.status(500).send(err)

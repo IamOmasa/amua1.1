@@ -8,6 +8,7 @@ const connectDB = require("./config/database")
 require('dotenv').config({path: './config/.env'})
 const homeRoutes = require('./routes/home')
 const editRoutes = require("./routes/editMember")
+const amountRoutes = require("./routes/amounts")
 //todo - Connect to Database
 connectDB()
 //todo - Set Middleware
@@ -18,6 +19,7 @@ app.use(express.urlencoded({extended: true}))
 //todo - Set Routes
 app.use('/', homeRoutes)
 app.use('/edit', editRoutes)
+app.use('/amount', amountRoutes)
 //todo - Start Server
 
 app.listen(PORT, () =>{

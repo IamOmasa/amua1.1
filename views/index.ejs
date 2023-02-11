@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1>My Dashboard</h1>
-    <form action="/new" method="POST">
+    <form action="/new" enctype="multipart/form-data" method="POST">
       <label for="firstName">First Name:</label>
       <input type="text" name="firstName">
       <br>
@@ -43,9 +43,17 @@
                  <div></div>
                  <a href="/edit/<%= member._id %>">Edit</a>
                  <a href="/edit/remove/<%= member._id %>">Remove</a>
+
              </li>
         <%}) %>
       </ol>
+      <div>
+        <h2>Contributions</h2>
+        <form action="/amount/createAmount" method="POST">
+          <input type="number" name="amount">
+          <button type="submit">Add Contribution</button>
+        </form>
+      </div>
     </div>
     <div class="section" style="background-color: lightgreen;">
       <h2>Savings</h2>
