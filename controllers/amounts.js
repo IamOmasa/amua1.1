@@ -1,4 +1,4 @@
-const Amount = require('../models/Amount')
+const Amount = require('../models/Amount');
 
 module.exports = {
     getAmount : async(req,res) => {
@@ -10,7 +10,7 @@ module.exports = {
         }
     },
     createAmount: async (req,res) => {
-    const newAmount = new Amount(
+       const newAmount = new Amount(
         {
             amount: req.body.amount,
             member: req.params.id

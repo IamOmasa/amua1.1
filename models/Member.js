@@ -19,7 +19,7 @@ const MemberSchema = new mongoose.Schema({
         type: String,
         enum: ['admin', 'superAdmin', 'member'],
         required: true,
-        default: 'user'
+        default: 'member'
       },
       nationalId:{
         type: String,
