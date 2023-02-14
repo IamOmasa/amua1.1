@@ -4,8 +4,9 @@ const Amount = require('../models/Amount')
 module.exports = {
     getIndex : async(req,res) => {
         try{
-            const members = await Member.find()
-            res.render("index.ejs",{membersList: members})
+            const members = await Member.findById(req.params.id);
+            const amounts = await Amountfind({members: req.params.id}).sort({createdAt: "desc"}).populate("member").lean()
+            res.render("index.ejs",{membersList: members, amounts: amounts})
         } catch (err) {
             if (err) return res.status(500).send(err)
         }

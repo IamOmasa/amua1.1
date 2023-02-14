@@ -49,10 +49,11 @@
       </ol>
       <div>
         <h2>Contributions</h2>
-        <form action="/amount/createAmount" method="POST">
+        <form action="/amount/createAmount/<%=members_id%>" method="POST">
           <input type="number" name="amount">
           <button type="submit">Add Contribution</button>
         </form>
+
       </div>
     </div>
     <div class="section" style="background-color: lightgreen;">
@@ -63,5 +64,6 @@
     </div>
     <div class="section" style="background-color: lightyellow;">
       <h2>Status</h2>
+      <div>
   </body>
 </html>

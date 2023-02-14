@@ -22,6 +22,8 @@ app.use('/edit', editRoutes)
 app.use('/amount', amountRoutes)
 //todo - Start Server
 
-app.listen(PORT, () =>{
-  console.log(`Server running on port ${PORT}`)
+connectDB().then(() => {
+     app.listen(PORT, () =>{
+        console.log(`Server running on port ${PORT}`)
+  })
 })
