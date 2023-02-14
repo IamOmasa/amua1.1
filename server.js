@@ -1,7 +1,7 @@
 //todo - Declare variables
 const express = require("express");
 const app = express()
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 const mongoose = require("mongoose")
 //*Import functions/routes
 const connectDB = require("./config/database")
