@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended: true}))
 app.use('/', homeRoutes)
 app.use('/edit', editRoutes)
 app.use('/amount', amountRoutes)
-//todo - Start Server
+//todo - Start Server now
 
 connectDB().then(() => {
      app.listen(PORT, () =>{
