@@ -9,8 +9,7 @@ require('dotenv').config({path: './config/.env'})
 const homeRoutes = require('./routes/home')
 const editRoutes = require("./routes/editMember")
 const amountRoutes = require("./routes/amounts")
-//todo - Connect to Database
-connectDB()
+
 //todo - Set Middleware
 app.set("view engine", "ejs")
 app.set(express.static("public"))
