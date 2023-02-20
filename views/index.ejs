@@ -24,7 +24,7 @@
         <option value="">--Select Role</option>
         <option value="admin">Admin</option>
         <option value="superAdmin">Super Admin</option>
-        <option value="member">Member</option>
+        <option value="user">User</option>
       </select>
       <br>
       <label for="nationalId">National ID:</label>
@@ -40,7 +40,13 @@
         <% membersList.forEach(member =>{ %>
              <li>
                  <div><%= member.firstName%> <%= member.lastName%></div>
-                 <div></div>
+                 <div>
+                  <h2>Contributions</h2>
+                  <form action="/amount/createAmount/<%= member._id %>" method="POST">
+                    <input type="number" name="amount">
+                    <button type="submit">Add Contribution</button>
+                  </form>
+                 </div>
                  <a href="/edit/<%= member._id %>">Edit</a>
                  <a href="/edit/remove/<%= member._id %>">Remove</a>
 
@@ -48,12 +54,7 @@
         <%}) %>
       </ol>
       <div>
-        <h2>Contributions</h2>
-        <form action="/amount/createAmount/" method="POST">
-          <input type="number" name="amount">
-          <button type="submit">Add Contribution</button>
-        </form>
-
+       
       </div>
     </div>
     <div class="section" style="background-color: lightgreen;">

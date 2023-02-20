@@ -14,13 +14,14 @@ module.exports = {
         {
             amount: req.body.amount,
             member: req.params.id
+            
 
         }
     )
     try {
         await newAmount.save()
         console.log(newAmount)
-        res.redirect("/")
+        res.redirect("/"+req.params.id)
     } catch (err) {
         if(err) return res.status(500).send(err)
         res.redirect("/")
