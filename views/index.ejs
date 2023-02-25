@@ -42,6 +42,14 @@
                  <div><%= member.firstName%> <%= member.lastName%></div>
                  <div>
                   <h2>Contributions</h2>
+                  <ul><% member.amounts.forEach(amount => { %>
+                    
+                    <li>
+                      <%= amount.amount %>
+                    </li>
+                  <% })%>
+                  </ul>
+                  
                   <form action="/amount/createAmount/<%= member._id %>" method="POST">
                     <input type="number" name="amount">
                     <button type="submit">Add Contribution</button>

@@ -30,6 +30,12 @@ const MemberSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
       }
+      
   });
 
+  MemberSchema.virtual('amounts',{
+    ref: 'Amount',
+    localField: '_id',
+    foreignField: 'member'
+  })
   module.exports = mongoose.model('Member', MemberSchema, 'members')
