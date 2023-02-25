@@ -1,4 +1,5 @@
 const Amount = require('../models/Amount');
+const Member = require('../models/Member')
 
 module.exports = {
     // getAmount : async(req,res) => {
@@ -14,6 +15,7 @@ module.exports = {
         {
             amount: req.body.amount,
             member: req.params.id
+            
 
         }
     )

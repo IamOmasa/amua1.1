@@ -17,9 +17,9 @@ const MemberSchema = new mongoose.Schema({
       },
     roles: {
         type: String,
-        enum: ['admin', 'superAdmin', 'member'],
+        enum: ['admin', 'superAdmin', 'user'],
         required: true,
-        default: 'member'
+        default: 'user'
       },
       nationalId:{
         type: String,
@@ -30,6 +30,12 @@ const MemberSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
       }
+      
   });
 
+  MemberSchema.virtual('amounts',{
+    ref: 'Amount',
+    localField: '_id',
+    foreignField: 'member'
+  })
   module.exports = mongoose.model('Member', MemberSchema, 'members')
