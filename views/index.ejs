@@ -4,34 +4,39 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <title>AMUA</title>
   </head>
   <body>
     <h1>My Dashboard</h1>
-    <form action="/new"  method="POST">
-      <label for="firstName">First Name:</label>
-      <input type="text" name="firstName">
-      <br>
-      <label for="lastName">Last Name:</label>
-      <input type="text" name="lastName">
-      <br>
-      <label for="email">Email:</label>
-      <input type="email" name="email">
-      <br>
-      <label for="roles">Role:</label>
-      <select name="roles" id="roles">
-        <option value="">--Select Role</option>
-        <option value="admin">Admin</option>
-        <option value="superAdmin">Super Admin</option>
-        <option value="user">User</option>
-      </select>
-      <br>
-      <label for="nationalId">National ID:</label>
-      <input type="text" name="nationalId">
-      <br>
-      <button type="submit">Add Member</button>
-    </form>
+    <div class="col-4 container">
+       <h2>Membership Form</h1>
+       <form action="/new"  method="POST">
+       <label for="firstName">First Name:</label>
+       <input type="text" name="firstName" class="form-control">
+       <br>
+       <label for="lastName">Last Name:</label>
+       <input type="text" name="lastName" class="form-control">
+       <br>
+       <label for="email">Email:</label>
+       <input type="email" name="email" class="form-control">
+       <br>
+       <label for="roles">Role:</label>
+       <select name="roles" id="roles">
+         <option value="">--Select Role</option>
+         <option value="admin">Admin</option>
+         <option value="superAdmin">Super Admin</option>
+         <option value="user">User</option>
+       </select>
+       <br>
+       <label for="nationalId">National ID:</label>
+       <input type="text" name="nationalId" class="form-control">
+       <br>
+       <button type="submit" >Add Member</button>
+      </form>
+    </div>
+    
 
     
     <div class="section" style="background-color: lightblue;">
@@ -39,20 +44,28 @@
       <ol>
         <% membersList.forEach(member =>{ %>
              <li>
-                 <div><%= member.firstName%> <%= member.lastName%></div>
-                 <div>
-                  <h2>Contributions</h2>
-                  <ul><% member.amounts.forEach(amount => { %>
+                <div><%= member.firstName%> <%= member.lastName%></div>
+                 <div class="accordion col-3" id="accordionExample">
+                  <div class="accordion-item">
+                    <h3 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Contributions
+                    </button>
+                   </h3>
+                   <ul id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample"><% member.amounts.forEach(amount => { %>
                     
-                    <li>
-                      <%= amount.amount %>
-                    </li>
-                  <% })%>
-                  </ul>
-                  
+                      <li class="accordion-body">
+                        <%= amount.amount %>
+                      </li>
+                       <% })%>
+                    </ul>
+                  </div>
+                   
+                  </div>
+                  <div class="col-6">
                   <form action="/amount/createAmount/<%= member._id %>" method="POST">
-                    <input type="number" name="amount">
-                    <button type="submit">Add Contribution</button>
+                    <input type="number" name="amount" class="form-control p-6"><!-- 
+                    --> <button type="submit" class="btn btn-primary">Add Contribution</button>
                   </form>
                  </div>
                  <a href="/edit/<%= member._id %>">Edit</a>
@@ -74,5 +87,6 @@
     <div class="section" style="background-color: lightyellow;">
       <h2>Status</h2>
       <div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
