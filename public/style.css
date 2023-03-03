@@ -1,6 +1,23 @@
-body{
-  margin-left: 20%;
+/* CSS reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+/* Set default font and color */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Set container width and center content */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .section {
     width: 30%;
     height: 200px;
@@ -25,4 +42,93 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+/* Navbar styles for extra small devices */
+@media (max-width: 575.98px) {
+  .col-4 {
+    display: none;
+  }
+  .navbar {
+    padding: 10px;
+  }
+  .navbar-brand {
+    font-size: 24px;
+  }
+  .navbar-nav {
+    flex-direction: column;
+    padding-top: 10px;
+  }
+  .nav-item {
+    margin-bottom: 5px;
+  }
+}
+
+/* Navbar styles for small devices */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .navbar {
+    padding: 15px;
+  }
+  .navbar-brand {
+    font-size: 28px;
+  }
+  .navbar-nav {
+    flex-direction: column;
+    padding-top: 15px;
+  }
+  .nav-item {
+    margin-bottom: 10px;
+  }
+}
+
+/* Navbar styles for medium devices */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .navbar {
+    padding: 20px;
+  }
+  .navbar-brand {
+    font-size: 32px;
+  }
+  .navbar-nav {
+    flex-direction: row;
+    padding-top: 20px;
+  }
+  .nav-item {
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+}
+
+/* Navbar styles for large devices */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .navbar {
+    padding: 30px;
+  }
+  .navbar-brand {
+    font-size: 36px;
+  }
+  .navbar-nav {
+    flex-direction: row;
+    padding-top: 30px;
+  }
+  .nav-item {
+    margin-right: 20px;
+  }
+}
+
+/* Navbar styles for extra large devices */
+@media (min-width: 1200px) {
+  .navbar {
+    padding: 40px;
+  }
+  .navbar-brand {
+    font-size: 40px;
+  }
+  .navbar-nav {
+    flex-direction: row;
+    padding-top: 40px;
+  }
+  .nav-item {
+    margin-right: 25px;
+  }
 }
