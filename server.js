@@ -12,6 +12,10 @@ const logger = require("morgan");
 //*Import functions/routes
 const connectDB = require("./config/database")
 require('dotenv').config({path: './config/.env'})
+
+// Passport config
+require("./config/passport")(passport);
+
 const homeRoutes = require('./routes/home')
 const editRoutes = require("./routes/editMember")
 const amountRoutes = require("./routes/amounts")
@@ -20,6 +24,31 @@ const amountRoutes = require("./routes/amounts")
 app.set("view engine", "ejs")
 app.set(express.static("public"))
 app.use(express.urlencoded({extended: true}))
+app.use(express.json());
+
+//Logging
+app.use(logger("dev"));
+
+//Use forms for put / delete
+app.use(methodOverride("_method"));
+
+// Setup Sessions - stored in MongoDB
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(adminBro.options.rootPath, router)
+
+//Use flash messages for errors, info, ect...
+app.use(flash());
 
 //todo - Set Routes
 app.use('/', homeRoutes)
