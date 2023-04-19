@@ -3,6 +3,7 @@ const Amount = require('../models/Amount')
 
 module.exports = {
     getIndex : async(req,res) => {
+      
         try{
             const members = await Member.find().populate('amounts');
             // const amounts = await Amount.find({members: req.params.id}).sort({createdAt: "desc"}).populate("member").lean()
